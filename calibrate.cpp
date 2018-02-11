@@ -377,18 +377,12 @@ void printQueue(Game::PQ p1)
 }
 
 
-//bool done = false;
+
 
 #if 1
 Game alphabeta(Game g1, int alpha, int beta,int depth, bool maximize, int max_depth, double time)
 {
-	//cout<<"Cost of this board is : "<<g1.cost<<endl;
-	//cout<<"depth: "<<depth<<endl;
-	//g1.getMoves();
-	//++n_calls;
-	//end= clock();
-	//time_diff= duration_cast<duration<double>>(finish - start).count();
-
+	
 	
 
 	if(depth== max_depth || g1.isTerminal())
@@ -505,8 +499,6 @@ int main()
 	p = 9;
 
 
-	//time = time/2;
-
 
 	vvc v(n,vector<char>(n,0));
 	char ch;
@@ -521,11 +513,9 @@ int main()
 	}
 	Game g1 = Game(v);
 	
-	//disp(v);
-	
-	int pt = -1; // initial point -> dummy 
 	
 	
+	int pt = -1; 
 	Game ans;
 
 	#if 1
@@ -544,21 +534,16 @@ int main()
 			int pos = ans.origin;
 			char cindex = (char)(pos%n)+'A';
 			int rindex= pos/n+1;
-			//cout<<cindex<<rindex<<"  "<<ans.cost<<" at depth: "<<max_depth;
 			
-			//cout<<" "<<elapsed_secs<<endl;
 			display_output(ans,g1);
 			if(ans.isTerminal())
 				break;
-			//cout<<"Prune count: "<<prune_cnt<<endl;
-			//cout<<"Number of calls: "<<n_calls<<endl;
-
+			
 		}
 	}
 	
 	#endif
-	//cout<<elapsed_secs<<endl;
-	//inputfile.close();
+	
 	outputfile.close();
 
 }
