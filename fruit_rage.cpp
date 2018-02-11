@@ -376,10 +376,7 @@ bool fin=false;
 #if 1
 Game alphabeta(Game g1, int alpha, int beta,int depth, bool maximize, int max_depth, double &time)
 {
-	//cout<<"Cost of this board is : "<<g1.cost<<endl;
-	//cout<<"depth: "<<depth<<endl;
-	//g1.getMoves();
-
+	
 	finish=clock();
 
 	tt= double(finish- start)/ CLOCKS_PER_SEC;
@@ -392,21 +389,10 @@ Game alphabeta(Game g1, int alpha, int beta,int depth, bool maximize, int max_de
 	if(depth== max_depth || g1.isTerminal())
 	{
 
-		//disp(g1.board);
-		//cout<<"Components: "<<endl;
-		//disp_components(g1.components);
-		//g1.printPoints();
-		//cout<<"reached";
-		//cout<<"Cost obtained: "<<g1.cost<<endl;
 		return g1;
 	}
 
 	
-	//cout<<"End of main board"<<endl;
-	
-	//cout<<q1.size();
-	//disp_components(q1);
-	//cout<<"Cost function: "<<g1.cost<<endl;
 	int n = g1.board.size();
 	if(maximize)
 	{
@@ -417,19 +403,15 @@ Game alphabeta(Game g1, int alpha, int beta,int depth, bool maximize, int max_de
 		Game maxState= Game();
 		maxState.cost= INT_MIN;
 		pair<int,int> point;
-		//Game temp(g1);
+		
 		while(!q1.empty())
 		{
-			//disp(g1.board);
 			
 			point = q1.top();
 			
-			//printQueue();
-
-			//cout<<point.first<<" : "<<point.second<<"is picked from q"<<endl;
 			q1.pop();
 			newState = nextMove(g1,maximize,point.first/n, point.first%n);
-			//disp(newState.board);
+			
 			newState = alphabeta(newState, alpha,beta, depth+1, false,max_depth,time);
 
 			if(fin)
@@ -463,16 +445,14 @@ Game alphabeta(Game g1, int alpha, int beta,int depth, bool maximize, int max_de
 		
 		while(!q1.empty())
 		{
-			//disp(g1.board);
-			//printQueue(q1);
+			
 			point = q1.top();
-			//cout<<"Min queue: "<<endl;
-			//cout<<point.first<<" "<<point.second<<"is picked from q"<<endl;
+			
 			q1.pop();
 			newState= nextMove(g1,maximize,point.first/n, point.first%n);
-			//disp(newState.board);
+			
 			newState = alphabeta(newState, alpha,beta, depth+1, true, max_depth,time);
-			//cout<<"Cost in alpha beta: "<<newState.cost<<endl;
+			
 			if(fin)
 				break;
 			if(newState.cost < minState.cost)
@@ -480,8 +460,6 @@ Game alphabeta(Game g1, int alpha, int beta,int depth, bool maximize, int max_de
 				minState= newState;
 			}
 
-			//min_hue = min(newState.cost, min_hue);
-			//cout<<"Minimum heuristic value: "<<min_hue<<endl;;
 			beta = min(beta,minState.cost);
 			if( beta <= alpha)
 				break;
@@ -520,7 +498,7 @@ int main()
 	inputfile.open("tc3.txt");
 	inputfile>>n>>p>>time;
 
-	//cout<<n<<p<<time<<endl;
+	
 	outputfile.open("op3.txt");
 	vvc v(n,vector<char>(n,0));
 	char ch;
@@ -538,9 +516,9 @@ int main()
 	int pt = -1; // initial point -> dummy 
 	
 	Game g1 = Game(v);
-	//cout<<"yes"<<endl;
+	
 	start=clock();
-	#if 1
+	
 	for(int max_depth=1; max_depth<=5; ++max_depth)
 	{
 		
@@ -550,24 +528,16 @@ int main()
 		int pos = ans.origin;
 		char cindex = (char)(pos%n)+'A';
 		int rindex= pos/n+1;
-		//cout<<cindex<<rindex<<"  "<<ans.cost<<" at depth: "<<max_depth;
+		
 		display_output(ans,g1);
 		finish =clock();
-		//tt = double(finish - start) / CLOCKS_PER_SEC;
+		
 		if(ans.isTerminal())
 			break;
 		
 
 	}
-	#endif
-
-	#if 0
-	int max_depth=3;
-	Game ans = alphabeta(g1,INT_MIN,INT_MAX,0,true,max_depth);
-
-	display_output(ans,g1);
-	#endif
-	//cout<<elapsed_secs<<endl;
+	
 	inputfile.close();
 	outputfile.close();
 
